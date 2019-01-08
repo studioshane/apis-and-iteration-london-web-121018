@@ -22,8 +22,6 @@ def get_film_info(film_urls)
   film_urls.each do |url|
     response_string = RestClient.get(url)
     response_hash = JSON.parse(response_string)
-    #response_hash["title"]
-    #response_hash["director"]
     title_director << {"title":response_hash["title"],"director":response_hash["director"]}
   end
   title_director
@@ -42,13 +40,20 @@ end
   #  of movies by title. Have a play around with the puts with other info about a given film.
 
 def print_movies(films)
+
+  if films == []
+    puts  "Character not found, please try again."
+  else
   films.each do |film_info|
     puts "---------------------------"
     film_info.each do |key,value|
       puts "#{key.capitalize}: #{value}"
+     end
     end
   end
 end
+
+
 
 def show_character_movies(character)
   array = get_character_movies_from_api(character)
@@ -56,7 +61,6 @@ def show_character_movies(character)
   print_movies(films)
 end
 
-show_character_movies("Luke Skywalker")
 
 
 ## BONUS
